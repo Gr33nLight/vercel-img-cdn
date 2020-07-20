@@ -10,7 +10,7 @@ const port = 3001;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/ping', (req, res) => {
+app.get('/', (req, res) => {
   // random endpoint so that the client can call something
   res.json({ msg: 'pong' });
 });
