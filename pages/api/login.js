@@ -7,7 +7,6 @@ export default (req, res) => {
   if (req.method === 'POST' /*&& req.protocol?.toLowerCase() == 'https'*/) {
     try {
       const key = req.headers['x-authorization-key'];
-      // TODO env
       if (key === jwtId) {
         const token = jwt.sign({ id: key }, jwtSecret, {
           expiresIn: 12000,
