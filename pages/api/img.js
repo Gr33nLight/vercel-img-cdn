@@ -4,6 +4,7 @@ const jwtId = process.env.JWT_ID;
 const fileSystem = require('fs');
 const path = require('path');
 import getConfig from 'next/config';
+import { Children } from 'react';
 const { serverRuntimeConfig } = getConfig();
 
 export default (req, res) => {
@@ -18,6 +19,22 @@ export default (req, res) => {
       jwt.verify(token, jwtSecret, function (err, decoded) {
         console.log(__filename);
         if (!err && decoded.id == jwtId) {
+          console.log('token ok printing path ');
+          console.log(serverRuntimeConfig.PROJECT_ROOT);
+
+          if (
+            fileSystem.existsSync(
+              path.join(serverRuntimeConfig.PROJECT_ROOT, '/img/b2.jpg')
+            )
+          ) {
+            console.log('file ok ');
+          } else {
+            console.log('file not found ');
+          }
+          console.log(path.resolve('/img/b2.jpg'));
+          console.log(' dirname: ');
+          console.log(__dirname);
+
           fileSystem.readFile(
             path.join(serverRuntimeConfig.PROJECT_ROOT, '/img/b2.jpg'),
             (err, file) => {
