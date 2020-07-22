@@ -22,11 +22,7 @@ export default (req, res) => {
           console.log('token ok printing path ');
           console.log(serverRuntimeConfig.PROJECT_ROOT);
 
-          if (
-            fileSystem.existsSync(
-              path.join(serverRuntimeConfig.PROJECT_ROOT, '/img/b2.jpg')
-            )
-          ) {
+          if (fileSystem.existsSync(path.resolve('./img/b2.jpg'))) {
             console.log('file ok ');
           } else {
             console.log('file not found ');
