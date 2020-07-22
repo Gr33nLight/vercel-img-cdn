@@ -18,10 +18,13 @@ export default (req, res) => {
       jwt.verify(token, jwtSecret, function (err, decoded) {
         console.log(__filename);
         if (!err && decoded.id == jwtId) {
-          fileSystem.readFile(path.resolve('./img/b2.jpg'), (err, file) => {
-            res.writeHead(200, { 'Content-Type': 'image/jpeg' });
-            return res.end(file);
-          });
+          fileSystem.readFile(
+            path.join(serverRuntimeConfig.PROJECT_ROOT, '/img/b2.jpg'),
+            (err, file) => {
+              res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+              return res.end(file);
+            }
+          );
         } else {
           console.log('aaa');
           return res.status(401).end();
