@@ -3,6 +3,9 @@ const jwtSecret = process.env.JWT_SECRET;
 const jwtId = process.env.JWT_ID;
 const fileSystem = require('fs');
 const path = require('path');
+import getConfig from 'next/config';
+const { serverRuntimeConfig } = getConfig();
+
 export default (req, res) => {
   //https://github.com/vercel/next.js/issues/8251
 
@@ -15,7 +18,10 @@ export default (req, res) => {
       jwt.verify(token, jwtSecret, function (err, decoded) {
         console.log(__filename);
         if (!err && decoded.id == jwtId) {
-          return res.json({ mgs: 'ok' });
+          fileSystem.readFile(path.resolve('./img/b2.jpg'), (err, file) => {
+            res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+            return res.end(file);
+          });
         } else {
           console.log('aaa');
           return res.status(401).end();
